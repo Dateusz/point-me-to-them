@@ -45,7 +45,7 @@ func update_multiplier(points = 0.0):
 func update_combo():
 	combo += 1
 	gui.update_combo(combo)
-	
+
 
 func spawn_enemies(count):
 	for each in count:
