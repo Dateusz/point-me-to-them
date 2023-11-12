@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://bnwadfq58yqnf"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_vujot"]
+[ext_resource type="PackedScene" uid="uid://cp65lqllgud8j" path="res://scenes/enemy.tscn" id="2_xi3j4"]
+[ext_resource type="PackedScene" uid="uid://wl3sc3bs4u7q" path="res://scenes/player.tscn" id="3_84pyh"]
+[ext_resource type="PackedScene" uid="uid://6sitby0huoht" path="res://scenes/GUI.tscn" id="4_vcnfu"]
+[ext_resource type="PackedScene" uid="uid://km4sp5h5byo2" path="res://scenes/music.tscn" id="5_vf3o1"]
+[ext_resource type="Texture2D" uid="uid://ba7ae6rqr4m7q" path="res://sprites/backgrounds/OIG.jpg" id="6_j60pj"]
+
+[node name="game" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_vujot")
+enemy_scene = ExtResource("2_xi3j4")
+enemy_count = 30
+
+[node name="GUI" parent="." instance=ExtResource("4_vcnfu")]
+layer = 10
+
+[node name="ComboDisplay" parent="GUI" index="2"]
+visible = false
+
+[node name="Music" parent="." instance=ExtResource("5_vf3o1")]
+volume_db = 0.0
+autoplay = true
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(944, 608)
+scale = Vector2(2.04297, 2.04297)
+texture = ExtResource("6_j60pj")
+
+[node name="Player" parent="." instance=ExtResource("3_84pyh")]
+
+[connection signal="value_changed" from="GUI/Menu/MarginContainer/VBoxContainer/GridContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="GUI/Menu/MarginContainer/VBoxContainer/GridContainer/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+
+[editable path="GUI"]

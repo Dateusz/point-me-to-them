@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnwadfq58yqnf"]
+
+[ext_resource type="PackedScene" uid="uid://wl3sc3bs4u7q" path="res://scenes/player.tscn" id="1_5qebn"]
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_r1o62"]
+[ext_resource type="PackedScene" uid="uid://cp65lqllgud8j" path="res://scenes/skeleton.tscn" id="2_rhds7"]
+
+[node name="test_level" type="Node2D"]
+script = ExtResource("1_r1o62")
+
+[node name="Player" parent="." instance=ExtResource("1_5qebn")]
+z_index = 5
+
+[node name="Skeleton" parent="." instance=ExtResource("2_rhds7")]
+position = Vector2(321, 139)
+
+[editable path="Player"]

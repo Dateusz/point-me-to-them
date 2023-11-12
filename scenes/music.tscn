@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://km4sp5h5byo2"]
+
+[ext_resource type="AudioStream" uid="uid://c0iabm0410gci" path="res://audio/music/8bit Stage1 Loop.mp3" id="1_em5aq"]
+
+[node name="Music" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_em5aq")
+volume_db = -20.0
+bus = &"Music"

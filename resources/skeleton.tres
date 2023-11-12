@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="enemyResource" load_steps=3 format=3 uid="uid://cx6nhpha1hnaj"]
+
+[ext_resource type="Script" path="res://scripts/enemy_resource.gd" id="1_kpaki"]
+[ext_resource type="SpriteFrames" uid="uid://c1cvw5sbc0pcy" path="res://sprites/spriteframes/skeleton_spriteframes.res" id="2_pbiii"]
+
+[resource]
+script = ExtResource("1_kpaki")
+sprite_frames = ExtResource("2_pbiii")
+health = 5
+points_reward = 20
+multiplier_bonus = 0.2

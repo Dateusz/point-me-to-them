@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://b35wcfac77jqd"]
+
+[ext_resource type="Script" path="res://scripts/sound_manager.gd" id="1_08611"]
+[ext_resource type="Script" path="res://scripts/sound_pool.gd" id="2_7lh6u"]
+[ext_resource type="Script" path="res://scripts/sound_queue.gd" id="3_5r87w"]
+[ext_resource type="AudioStream" uid="uid://b0d5s2c8dld2c" path="res://audio/sfx/hit/skeleton_hit01.mp3" id="4_cc3o0"]
+[ext_resource type="AudioStream" uid="uid://c2xtqnce7gghd" path="res://audio/sfx/hit/skeleton_hit02.mp3" id="5_2bums"]
+[ext_resource type="AudioStream" uid="uid://ft1pvhqwjmpf" path="res://audio/sfx/hit/skeleton_hit03.mp3" id="6_i5tlp"]
+[ext_resource type="AudioStream" uid="uid://buinscmkuicik" path="res://audio/sfx/hit/skeleton_hit04.mp3" id="7_4rrxd"]
+[ext_resource type="AudioStream" uid="uid://bfr743gpb0sko" path="res://audio/sfx/hit/skeleton_hit05.mp3" id="8_0aawa"]
+
+[node name="SoundManager" type="Node"]
+script = ExtResource("1_08611")
+
+[node name="SkeletonHitSoundPool" type="Node" parent="."]
+script = ExtResource("2_7lh6u")
+
+[node name="SoundQueue" type="Node" parent="SkeletonHitSoundPool"]
+script = ExtResource("3_5r87w")
+count = 5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SkeletonHitSoundPool/SoundQueue"]
+stream = ExtResource("4_cc3o0")
+bus = &"SFX"
+
+[node name="SoundQueue2" type="Node" parent="SkeletonHitSoundPool"]
+script = ExtResource("3_5r87w")
+count = 5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SkeletonHitSoundPool/SoundQueue2"]
+stream = ExtResource("5_2bums")
+bus = &"SFX"
+
+[node name="SoundQueue3" type="Node" parent="SkeletonHitSoundPool"]
+script = ExtResource("3_5r87w")
+count = 5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SkeletonHitSoundPool/SoundQueue3"]
+stream = ExtResource("6_i5tlp")
+bus = &"SFX"
+
+[node name="SoundQueue4" type="Node" parent="SkeletonHitSoundPool"]
+script = ExtResource("3_5r87w")
+count = 5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SkeletonHitSoundPool/SoundQueue4"]
+stream = ExtResource("7_4rrxd")
+bus = &"SFX"
+
+[node name="SoundQueue5" type="Node" parent="SkeletonHitSoundPool"]
+script = ExtResource("3_5r87w")
+count = 5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SkeletonHitSoundPool/SoundQueue5"]
+stream = ExtResource("8_0aawa")
+bus = &"SFX"

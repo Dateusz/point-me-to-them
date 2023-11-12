@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cp65lqllgud8j"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_jgtjk"]
+[ext_resource type="Resource" uid="uid://cx6nhpha1hnaj" path="res://resources/skeleton.tres" id="2_fk23b"]
+[ext_resource type="SpriteFrames" uid="uid://c1cvw5sbc0pcy" path="res://sprites/spriteframes/skeleton_spriteframes.res" id="3_0o7cg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v68oc"]
+size = Vector2(17, 25)
+
+[node name="Enemy" type="Node2D"]
+z_index = 6
+scale = Vector2(2, 2)
+script = ExtResource("1_jgtjk")
+resource = ExtResource("2_fk23b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 5
+sprite_frames = ExtResource("3_0o7cg")
+animation = &"hit"
+frame_progress = 0.581705
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-3.5, 4.5)
+shape = SubResource("RectangleShape2D_v68oc")
+
+[connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
