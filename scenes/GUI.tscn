@@ -1,10 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://6sitby0huoht"]
 
-[ext_resource type="Script" path="res://scenes/GUI.gd" id="1_jav1e"]
+[ext_resource type="Script" path="res://scripts/GUI.gd" id="1_4c3tv"]
 
 [node name="GUI" type="CanvasLayer"]
 process_mode = 3
-script = ExtResource("1_jav1e")
+script = ExtResource("1_4c3tv")
 
 [node name="ScoreDisplay" type="RichTextLabel" parent="."]
 anchors_preset = -1
