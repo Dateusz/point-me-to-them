@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b35wcfac77jqd"]
+[gd_scene load_steps=11 format=3 uid="uid://b35wcfac77jqd"]
 
 [ext_resource type="Script" path="res://scripts/sound_manager.gd" id="1_08611"]
 [ext_resource type="Script" path="res://scripts/sound_pool.gd" id="2_7lh6u"]
@@ -8,6 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://ft1pvhqwjmpf" path="res://audio/sfx/hit/skeleton_hit03.mp3" id="6_i5tlp"]
 [ext_resource type="AudioStream" uid="uid://buinscmkuicik" path="res://audio/sfx/hit/skeleton_hit04.mp3" id="7_4rrxd"]
 [ext_resource type="AudioStream" uid="uid://bfr743gpb0sko" path="res://audio/sfx/hit/skeleton_hit05.mp3" id="8_0aawa"]
+[ext_resource type="PackedScene" uid="uid://8b26oprub225" path="res://scenes/SoundQueue.tscn" id="9_vauho"]
+[ext_resource type="AudioStream" uid="uid://c26nwppxhosjl" path="res://audio/sfx/hit/player_hit01.mp3" id="10_si1rw"]
 
 [node name="SoundManager" type="Node"]
 script = ExtResource("1_08611")
@@ -54,3 +56,9 @@ count = 5
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SkeletonHitSoundPool/SoundQueue5"]
 stream = ExtResource("8_0aawa")
 bus = &"SFX"
+
+[node name="PlayerHitSoundQueue" parent="." instance=ExtResource("9_vauho")]
+count = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="PlayerHitSoundQueue"]
+stream = ExtResource("10_si1rw")

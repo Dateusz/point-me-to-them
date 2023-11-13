@@ -32,7 +32,6 @@ size_flags_horizontal = 4
 text = "COMBO X"
 
 [node name="Menu" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -65,10 +64,42 @@ theme_override_constants/margin_bottom = 128
 layout_mode = 2
 alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="Menu/MarginContainer/VBoxContainer"]
+[node name="FX" type="Label" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "FX
+"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="GridContainer2" type="GridContainer" parent="Menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/h_separation = 32
+columns = 2
+
+[node name="CamShakeLabel" type="Label" parent="Menu/MarginContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+text = "Camera Shake"
+
+[node name="CamShakeSlider" type="HSlider" parent="Menu/MarginContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="Audio" type="Label" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Audio
+"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="GridContainer" type="GridContainer" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 100
 columns = 2
 
 [node name="MusicLabel" type="Label" parent="Menu/MarginContainer/VBoxContainer/GridContainer"]
@@ -94,6 +125,29 @@ size_flags_vertical = 4
 max_value = 1.0
 step = 0.05
 value = 1.0
+
+[node name="HealthDisplay" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="HealthMargin" type="MarginContainer" parent="HealthDisplay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_top = 100
+
+[node name="HealthContainer" type="GridContainer" parent="HealthDisplay/HealthMargin"]
+layout_mode = 2
 
 [connection signal="value_changed" from="Menu/MarginContainer/VBoxContainer/GridContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="Menu/MarginContainer/VBoxContainer/GridContainer/SFXSlider" to="." method="_on_sfx_slider_value_changed"]

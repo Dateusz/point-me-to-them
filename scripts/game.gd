@@ -5,6 +5,8 @@ extends Node2D
 
 @onready var game = $"."
 @onready var gui = $GUI
+@onready var camera_2d = $Camera2D
+@onready var player = $Player
 
 var score = 0
 var combo = 0
@@ -12,6 +14,8 @@ var multiplier = 1.0
 var min_multiplier = 1.0
 var starting_enemies = enemy_count
 var game_paused = false
+var lost = false
+var won = false
 
 
 func _ready():
@@ -53,6 +57,7 @@ func spawn_enemies(count):
 		var mob_position = _get_random_position()
 		mob.position = mob_position
 		mob.connect("killed_by_player", _on_enemy_killed_by_player)
+		mob.connect("player_hit", _on_enemy_deals_damage)
 		add_child(mob)
 
 
@@ -61,7 +66,9 @@ func _on_enemy_killed_by_player(_points, _multiplier):
 	update_score(_points)
 	update_multiplier(_multiplier)
 	update_combo()
+	camera_2d.apply_shake(1.5,1)
 	if enemy_count <= 0:
+		won = true
 		end_stage()
 
 
@@ -91,10 +98,29 @@ func unpause():
 	get_tree().paused = false
 
 
+func _on_enemy_deals_damage(damage):
+	combo = 0
+	multiplier = 1.0
+	gui.update_multiplier(multiplier)
+	gui.update_combo(combo)
+	player.get_damaged(damage)
+	gui.update_health_bar()
+
+
 func end_stage():
-	# change music track to something slower
-	# if perfect (combo == number of enemies) some popup or whatever
-	# "WIN SCREEN":
-	# choose an ability
-	# continue afterwards
-	pass
+	if lost:
+		print("game lost")
+	elif won:
+		print("game won")
+
+
+func _on_player_died():
+	if !lost:
+		lost = true
+		end_stage()
+
+
+func restart():
+	lost = false
+	won = false
+	player.visible = true

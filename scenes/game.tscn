@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bnwadfq58yqnf"]
+[gd_scene load_steps=8 format=3 uid="uid://bnwadfq58yqnf"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_vujot"]
 [ext_resource type="PackedScene" uid="uid://cp65lqllgud8j" path="res://scenes/enemy.tscn" id="2_xi3j4"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://6sitby0huoht" path="res://scenes/GUI.tscn" id="4_vcnfu"]
 [ext_resource type="PackedScene" uid="uid://km4sp5h5byo2" path="res://scenes/music.tscn" id="5_vf3o1"]
 [ext_resource type="Texture2D" uid="uid://ba7ae6rqr4m7q" path="res://sprites/backgrounds/OIG.jpg" id="6_j60pj"]
+[ext_resource type="Script" path="res://scenes/Camera2D.gd" id="7_dpc71"]
 
 [node name="game" type="Node2D"]
 process_mode = 3
@@ -19,18 +20,26 @@ layer = 10
 [node name="ComboDisplay" parent="GUI" index="2"]
 visible = false
 
+[node name="Menu" parent="GUI" index="3"]
+visible = false
+
 [node name="Music" parent="." instance=ExtResource("5_vf3o1")]
 volume_db = 0.0
 autoplay = true
 
 [node name="background" type="Sprite2D" parent="."]
-position = Vector2(944, 608)
+position = Vector2(944, 584)
 scale = Vector2(2.04297, 2.04297)
 texture = ExtResource("6_j60pj")
 
 [node name="Player" parent="." instance=ExtResource("3_84pyh")]
 
-[connection signal="value_changed" from="GUI/Menu/MarginContainer/VBoxContainer/GridContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
-[connection signal="value_changed" from="GUI/Menu/MarginContainer/VBoxContainer/GridContainer/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 544)
+script = ExtResource("7_dpc71")
+shake_fade = 10.0
+
+[connection signal="value_changed" from="GUI/Menu/MarginContainer/VBoxContainer/GridContainer2/CamShakeSlider" to="Camera2D" method="_on_cam_shake_slider_value_changed"]
+[connection signal="died" from="Player" to="." method="_on_player_died"]
 
 [editable path="GUI"]

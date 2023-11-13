@@ -7,3 +7,4 @@ class_name enemyResource
 @export var points_reward: int
 @export var multiplier_bonus: float
 @export var attack_speed: Array
+@export var damage: int

@@ -1,6 +1,7 @@
 extends Node2D
 
 signal killed_by_player(points, multiplier_bonus)
+signal player_hit(damage)
 
 @export var resource: Resource
 
@@ -8,12 +9,15 @@ signal killed_by_player(points, multiplier_bonus)
 @onready var health: int
 @onready var points: int
 @onready var multiplier_bonus: float
+@onready var attack_collision_area = $AttackCollisionArea
+@onready var damage: int
 
 var take_damage = false
 var _damage_timer = null
 var _attack_timer = null
 var is_dead = false
 var is_attacking = false
+var is_vulnerable = true
 var min_attack_wait_time
 var max_attack_wait_time
 var attack_speed
@@ -23,6 +27,7 @@ func _ready():
 	health = resource.health
 	points = resource.points_reward
 	multiplier_bonus = resource.multiplier_bonus
+	damage = resource.damage
 	min_attack_wait_time = resource.attack_speed[0]
 	max_attack_wait_time = resource.attack_speed[1]
 	
@@ -54,7 +59,8 @@ func _on_area_2d_body_exited(_body):
 func _take_damage():
 	if take_damage:
 		play_hit_sound()
-		animated_sprite_2d.play("hit")
+		if not is_attacking:
+			animated_sprite_2d.play("hit")
 		health -= 1
 
 
@@ -79,22 +85,42 @@ func _on_animated_sprite_2d_animation_finished():
 		queue_free()
 	if animated_sprite_2d.animation == "hit":
 		animated_sprite_2d.play("idle")
+	if animated_sprite_2d.animation == "attack":
+		is_attacking = false
+		is_vulnerable = true
 
 
 func _on_animated_sprite_2d_animation_changed():
 	if animated_sprite_2d.animation == "die":
 		killed_by_player.emit(points, multiplier_bonus)
 
+
 func play_hit_sound():
 	SoundManager.play_skeleton_hit_sound()
 
 
 func _attack():
-	animated_sprite_2d.play("attack")
-	
-	
+	if !is_dead:
+		is_attacking = true
+		is_vulnerable = false
+		animated_sprite_2d.play("attack")
 
 
 func _get_attack_speed():
 	attack_speed = randf_range(min_attack_wait_time, max_attack_wait_time)
 	return attack_speed
+
+
+func _on_animated_sprite_2d_frame_changed():
+	if (
+		is_attacking
+		&& animated_sprite_2d.animation == "attack"
+		&& animated_sprite_2d.frame == 7
+		):
+			attack_collision_area.monitoring = true
+	else:
+		attack_collision_area.monitoring = false
+
+
+func _on_attack_collision_area_body_entered(_body):
+	player_hit.emit(damage)

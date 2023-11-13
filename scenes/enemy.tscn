@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cp65lqllgud8j"]
+[gd_scene load_steps=6 format=3 uid="uid://cp65lqllgud8j"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_jgtjk"]
 [ext_resource type="Resource" uid="uid://cx6nhpha1hnaj" path="res://resources/skeleton.tres" id="2_fk23b"]
@@ -6,6 +6,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v68oc"]
 size = Vector2(17, 25)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w62m4"]
+radius = 19.0066
 
 [node name="Enemy" type="Node2D"]
 z_index = 6
@@ -17,8 +20,6 @@ resource = ExtResource("2_fk23b")
 z_index = 5
 sprite_frames = ExtResource("3_0o7cg")
 animation = &"attack"
-frame = 13
-frame_progress = 0.297537
 
 [node name="CollisionArea" type="Area2D" parent="."]
 
@@ -26,7 +27,16 @@ frame_progress = 0.297537
 position = Vector2(-3.5, 4.5)
 shape = SubResource("RectangleShape2D_v68oc")
 
+[node name="AttackCollisionArea" type="Area2D" parent="."]
+monitoring = false
+
+[node name="AttackCollisionShape2D" type="CollisionShape2D" parent="AttackCollisionArea"]
+position = Vector2(-1, 2.5)
+shape = SubResource("CircleShape2D_w62m4")
+
 [connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="CollisionArea" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="AttackCollisionArea" to="." method="_on_attack_collision_area_body_entered"]
