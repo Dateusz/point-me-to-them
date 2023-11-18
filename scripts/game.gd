@@ -10,6 +10,7 @@ signal close_menu()
 @onready var gui = $GUI
 @onready var camera_2d = $Camera2D
 @onready var player = $Player
+@onready var start_timer = $start_timer
 
 var score = 0
 var combo = 0
@@ -22,7 +23,6 @@ var won = false
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	_start_game()
 
 
 func _input(event):
@@ -37,6 +37,10 @@ func _start_game():
 	update_score()
 	update_multiplier()
 
+
+func _count_down():
+	pass
+	
 
 func update_score(points = 0):
 	score += (points * multiplier)
@@ -133,3 +137,7 @@ func restart():
 
 func _on_menu_unpause():
 	unpause()
+
+
+func _on_start_timer_start_game():
+	_start_game()

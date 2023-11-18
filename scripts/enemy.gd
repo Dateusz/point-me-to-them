@@ -13,8 +13,8 @@ signal player_hit()
 @onready var damage: int
 
 var take_damage = false
-var _damage_timer = null
-var _attack_timer = null
+var _damage_timer: Timer = null
+var _attack_timer: Timer = null
 var is_dead = false
 var is_attacking = false
 var is_vulnerable = true
@@ -123,4 +123,4 @@ func _on_animated_sprite_2d_frame_changed():
 
 
 func _on_attack_collision_area_body_entered(_body):
-	player_hit.emit() #
+	player_hit.emit()
