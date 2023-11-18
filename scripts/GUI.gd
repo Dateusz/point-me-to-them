@@ -7,7 +7,6 @@ extends CanvasLayer
 @onready var score_display = $ScoreDisplay
 @onready var multiplier_display = $MultiplierDisplay
 @onready var combo_display = $ComboDisplay
-@onready var menu = $Menu
 @onready var health_container = $HealthDisplay/HealthMargin/HealthContainer
 @onready var player = $"../Player"
 @onready var heart_png = preload("res://sprites/gui/heart.png")
@@ -17,12 +16,6 @@ extends CanvasLayer
 func _ready():
 	combo_display.set_visible(false)
 	update_health_bar()
-
-
-func _input(event):
-	if event.is_action_pressed('ui_cancel'):
-		menu.visible = !menu.visible
-		health_display.visible = !health_display.visible
 
 
 func update_score(score):
@@ -42,7 +35,6 @@ func update_combo(combo):
 
 
 func update_health_bar():
-	print(player.health)
 	for child in health_container.get_children():
 		child.queue_free()
 		
@@ -56,13 +48,3 @@ func update_health_bar():
 			pc.add_child(hp)
 			hp.set_texture(heart_png)
 			hp.scale = Vector2(3,3)
-
-
-func _on_music_slider_value_changed(value):
-	AudioServer.set_bus_volume_db(MUSIC_BUS_ID, linear_to_db(value))
-	AudioServer.set_bus_mute(MUSIC_BUS_ID, value < .05)
-
-
-func _on_sfx_slider_value_changed(value):
-	AudioServer.set_bus_volume_db(SFX_BUS_ID, linear_to_db(value))
-	AudioServer.set_bus_mute(SFX_BUS_ID, value < .05)

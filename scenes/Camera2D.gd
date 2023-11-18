@@ -6,6 +6,7 @@ extends Camera2D
 var rng = RandomNumberGenerator.new()
 var shake_strength: float = 0.0
 var shake_option: float = 1.0
+var options_shake_value: float = 1.0
 
 
 func _process(delta):
@@ -20,7 +21,7 @@ func _process(delta):
 		shake_strength = 0
 
 func apply_shake(applied_strength, applied_shake):
-	shake_strength = applied_strength * shake_option
+	shake_strength = applied_strength * options_shake_value
 	shake_fade = applied_shake
 
 
@@ -31,5 +32,5 @@ func random_offset() -> Vector2:
 	)
 
 
-func _on_cam_shake_slider_value_changed(value):
-	shake_option = value
+func _on_menu_set_camera_shake(value):
+	options_shake_value = value

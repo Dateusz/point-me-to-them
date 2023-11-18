@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0f6uqtvq2prs"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_sa2qh"]
+[ext_resource type="PackedScene" uid="uid://cjkcowdv62b1u" path="res://scenes/options.tscn" id="2_v1qlg"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_sa2qh")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.247059, 0.752941, 0.568627, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control"]
+layout_mode = 2
+offset_left = 512.0
+offset_top = 501.0
+offset_right = 1408.0
+offset_bottom = 604.0
+
+[node name="BoxContainer" type="BoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 512.0
+offset_top = -212.0
+offset_right = -512.0
+offset_bottom = 236.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+vertical = true
+
+[node name="StartButton" type="Button" parent="CanvasLayer/Control/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "START GAME"
+
+[node name="OptionsButton" type="Button" parent="CanvasLayer/Control/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "OPTIONS"
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/Control/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "QUIT"
+
+[node name="Options" parent="CanvasLayer" instance=ExtResource("2_v1qlg")]
+visible = false
+
+[connection signal="pressed" from="CanvasLayer/Control/BoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/BoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/BoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

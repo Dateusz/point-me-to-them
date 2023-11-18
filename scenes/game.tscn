@@ -12,15 +12,12 @@
 process_mode = 3
 script = ExtResource("1_vujot")
 enemy_scene = ExtResource("2_xi3j4")
-enemy_count = 30
+enemy_count = 5
 
 [node name="GUI" parent="." instance=ExtResource("4_vcnfu")]
 layer = 10
 
 [node name="ComboDisplay" parent="GUI" index="2"]
-visible = false
-
-[node name="Menu" parent="GUI" index="3"]
 visible = false
 
 [node name="Music" parent="." instance=ExtResource("5_vf3o1")]
@@ -33,13 +30,15 @@ scale = Vector2(2.04297, 2.04297)
 texture = ExtResource("6_j60pj")
 
 [node name="Player" parent="." instance=ExtResource("3_84pyh")]
+visibility_layer = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 544)
 script = ExtResource("7_dpc71")
 shake_fade = 10.0
 
-[connection signal="value_changed" from="GUI/Menu/MarginContainer/VBoxContainer/GridContainer2/CamShakeSlider" to="Camera2D" method="_on_cam_shake_slider_value_changed"]
+[connection signal="close_menu" from="." to="GUI/Options" method="_on_game_close_menu"]
+[connection signal="open_menu" from="." to="GUI/Options" method="_on_game_open_menu"]
 [connection signal="died" from="Player" to="." method="_on_player_died"]
 
 [editable path="GUI"]

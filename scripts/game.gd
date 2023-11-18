@@ -1,5 +1,8 @@
 extends Node2D
 
+signal open_menu()
+signal close_menu()
+
 @export var enemy_scene: PackedScene
 @export var enemy_count: int
 
@@ -13,7 +16,6 @@ var combo = 0
 var multiplier = 1.0
 var min_multiplier = 1.0
 var starting_enemies = enemy_count
-var game_paused = false
 var lost = false
 var won = false
 
@@ -24,9 +26,9 @@ func _ready():
 
 
 func _input(event):
-	if event.is_action_pressed('ui_cancel') && !game_paused:
+	if event.is_action_pressed('ui_cancel') && !get_tree().paused:
 		pause()
-	elif event.is_action_pressed('ui_cancel') && game_paused:
+	elif event.is_action_pressed('ui_cancel') && get_tree().paused:
 		unpause()
 
 
@@ -89,21 +91,23 @@ func _get_random_position():
 
 
 func pause():
-	game_paused = true
 	get_tree().paused = true
+	open_menu.emit()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 
 func unpause():
-	game_paused = false
 	get_tree().paused = false
+	close_menu.emit()
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 
-func _on_enemy_deals_damage(damage):
+func _on_enemy_deals_damage():
 	combo = 0
 	multiplier = 1.0
 	gui.update_multiplier(multiplier)
 	gui.update_combo(combo)
-	player.get_damaged(damage)
+	player.get_damaged()
 	gui.update_health_bar()
 
 
@@ -124,3 +128,8 @@ func restart():
 	lost = false
 	won = false
 	player.visible = true
+
+
+
+func _on_menu_unpause():
+	unpause()

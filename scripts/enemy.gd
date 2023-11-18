@@ -1,7 +1,7 @@
 extends Node2D
 
 signal killed_by_player(points, multiplier_bonus)
-signal player_hit(damage)
+signal player_hit()
 
 @export var resource: Resource
 
@@ -123,4 +123,4 @@ func _on_animated_sprite_2d_frame_changed():
 
 
 func _on_attack_collision_area_body_entered(_body):
-	player_hit.emit(damage)
+	player_hit.emit()

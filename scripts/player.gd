@@ -27,7 +27,7 @@ func _input(event):
 		elif event is InputEventMouseMotion:
 			player.position = event.position
 
-func get_damaged(dmg):
+func get_damaged():
 	if health > 0:
 		if is_vulnerable:
 			SoundManager.play_player_hit_sound()
