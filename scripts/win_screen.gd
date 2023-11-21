@@ -55,4 +55,4 @@ func show_skill_selection():
 		
 
 func skill_chosen(skill):
-	print("FUCK YOOUUUUUUUUUUUUUUUU BIIIIIIIIITCH")
+	print("BOO")
