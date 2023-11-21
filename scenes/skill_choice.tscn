@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://dplamgro23jn7"]
+
+[ext_resource type="Script" path="res://scripts/skill_choice.gd" id="1_m4h3d"]
+
+[node name="SkillChoice" type="VBoxContainer"]
+custom_minimum_size = Vector2(425, 0)
+script = ExtResource("1_m4h3d")
+
+[node name="SkillName" type="RichTextLabel" parent="."]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="SkillButton" type="TextureButton" parent="."]
+layout_mode = 2
+stretch_mode = 3
+
+[node name="SkillDesc" type="RichTextLabel" parent="."]
+layout_mode = 2
+bbcode_enabled = true
+
+[connection signal="pressed" from="SkillButton" to="." method="_on_skill_button_pressed"]

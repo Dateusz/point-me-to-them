@@ -2,6 +2,7 @@ extends Node2D
 
 signal open_menu()
 signal close_menu()
+signal open_win_screen()
 
 @export var enemy_scene: PackedScene
 @export var enemy_count: int
@@ -119,7 +120,7 @@ func end_stage():
 	if lost:
 		print("game lost")
 	elif won:
-		print("game won")
+		stage_won()
 
 
 func _on_player_died():
@@ -134,10 +135,22 @@ func restart():
 	player.visible = true
 
 
-
 func _on_menu_unpause():
 	unpause()
 
 
 func _on_start_timer_start_game():
 	_start_game()
+
+
+func stage_won():
+	get_tree().paused = true
+	open_win_screen.emit()
+
+
+func _on_win_screen_hide_ui():
+	gui.hide()
+
+
+func _on_win_screen_show_ui():
+	gui.show()

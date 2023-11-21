@@ -9,14 +9,9 @@ signal start_game()
 func _ready():
 	timer.start()
 
-
-func time_left():
-	var time_left = timer.time_left
-	var second =  (int(time_left) % 60) + 1
-	return [second]
 	
-func _process(delta):
-	label.text = "%02d" % time_left()
+func _process(_delta):
+	label.text = "%02d" % (timer.get_time_left() + 1)
 
 
 func _on_timer_timeout():

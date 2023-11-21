@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bnwadfq58yqnf"]
+[gd_scene load_steps=10 format=3 uid="uid://bnwadfq58yqnf"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_vujot"]
 [ext_resource type="PackedScene" uid="uid://cp65lqllgud8j" path="res://scenes/enemy.tscn" id="2_xi3j4"]
@@ -8,17 +8,21 @@
 [ext_resource type="Texture2D" uid="uid://ba7ae6rqr4m7q" path="res://sprites/backgrounds/OIG.jpg" id="6_j60pj"]
 [ext_resource type="Script" path="res://scenes/Camera2D.gd" id="7_dpc71"]
 [ext_resource type="PackedScene" uid="uid://bwdqgpcov6q0i" path="res://scenes/start_timer.tscn" id="8_k3y3l"]
+[ext_resource type="PackedScene" uid="uid://c1ev2a3y3ioh3" path="res://scenes/win_screen.tscn" id="9_2faty"]
 
 [node name="game" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_vujot")
 enemy_scene = ExtResource("2_xi3j4")
-enemy_count = 5
+enemy_count = 1
 
 [node name="GUI" parent="." instance=ExtResource("4_vcnfu")]
 layer = 10
 
 [node name="ComboDisplay" parent="GUI" index="2"]
+visible = false
+
+[node name="WinScreen" parent="." instance=ExtResource("9_2faty")]
 visible = false
 
 [node name="Music" parent="." instance=ExtResource("5_vf3o1")]
@@ -42,6 +46,10 @@ shake_fade = 10.0
 
 [connection signal="close_menu" from="." to="GUI/Options" method="_on_game_close_menu"]
 [connection signal="open_menu" from="." to="GUI/Options" method="_on_game_open_menu"]
+[connection signal="open_win_screen" from="." to="WinScreen" method="_on_game_open_win_screen"]
+[connection signal="add_skill" from="WinScreen" to="Player" method="_on_win_screen_add_skill"]
+[connection signal="hide_ui" from="WinScreen" to="." method="_on_win_screen_hide_ui"]
+[connection signal="show_ui" from="WinScreen" to="." method="_on_win_screen_show_ui"]
 [connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="start_game" from="start_timer" to="." method="_on_start_timer_start_game"]
 

@@ -14,6 +14,11 @@ var cursor = preload("res://sprites/cursor.png")
 var iframes_timer: Timer
 var iframes_length: float = 1.0
 var is_vulnerable = true
+var skills: Array
+
+var dmg_bonus: int = 0
+var health_bonus: int = 0
+var size_bonus: float = 1.0
 
 
 func _ready():
@@ -58,3 +63,21 @@ func _new_iframes_timer(time):
 
 func _set_player_vulnerable():
 	is_vulnerable = true
+
+
+func _on_win_screen_add_skill(skill):
+	skills.append(skill)
+	_update_bonuses()
+
+
+func _update_bonuses():
+	dmg_bonus = 0
+	health_bonus = 0;
+	size_bonus = 1.0
+	for skill in skills:
+		if skill.name == "Damage+":
+			dmg_bonus += 1
+		if skill.name == "Size+":
+			size_bonus += 0.5
+		if skill.name == "Health+":
+			health_bonus += 1

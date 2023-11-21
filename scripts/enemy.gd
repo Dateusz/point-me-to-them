@@ -57,11 +57,12 @@ func _on_area_2d_body_exited(_body):
 
 
 func _take_damage():
+	#check if body is player and add dmg bonus to damage
 	if take_damage:
 		play_hit_sound()
 		if not is_attacking:
 			animated_sprite_2d.play("hit")
-		health -= 1
+		health -= 1#(1 + player.dmg_bonus)
 
 
 func _check_if_dead():
