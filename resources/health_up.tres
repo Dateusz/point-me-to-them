@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SkillResource" load_steps=5 format=3 uid="uid://bt0aso68n0mup"]
+
+[ext_resource type="Texture2D" uid="uid://beow4fx0ldm7i" path="res://sprites/skills/health_hover.png" id="1_qivgw"]
+[ext_resource type="Texture2D" uid="uid://dhrxngbg7emjm" path="res://sprites/skills/health.png" id="2_xampc"]
+[ext_resource type="Texture2D" uid="uid://dn5t00e0d08te" path="res://sprites/skills/health_pressed.png" id="3_x400c"]
+[ext_resource type="Script" path="res://scripts/skill_resource.gd" id="4_ivip3"]
+
+[resource]
+script = ExtResource("4_ivip3")
+normal_texture = ExtResource("2_xampc")
+pressed_texture = ExtResource("3_x400c")
+hover_texture = ExtResource("1_qivgw")
+skill_name = "Health+"
+description = "+1 health point"

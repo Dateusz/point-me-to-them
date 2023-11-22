@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1ev2a3y3ioh3"]
+[gd_scene load_steps=8 format=3 uid="uid://c1ev2a3y3ioh3"]
 
 [ext_resource type="Script" path="res://scripts/win_screen.gd" id="1_fg4tc"]
 [ext_resource type="PackedScene" uid="uid://dplamgro23jn7" path="res://scenes/skill_choice.tscn" id="2_j84uq"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/skill_pool.gd" id="4_x3ggk"]
 [ext_resource type="Script" path="res://scripts/skill.gd" id="5_tih3g"]
 [ext_resource type="Resource" uid="uid://bi60ixssutee4" path="res://resources/damage_up.tres" id="6_d1lxb"]
+[ext_resource type="Resource" uid="uid://bt0aso68n0mup" path="res://resources/health_up.tres" id="8_sg8j4"]
 
 [node name="WinScreen" type="CanvasLayer"]
 process_mode = 3
@@ -13,6 +14,7 @@ script = ExtResource("1_fg4tc")
 skill_choice_scene = ExtResource("2_j84uq")
 
 [node name="WinScreenCanvas" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="WinScreenCanvas"]
 anchors_preset = 15
@@ -86,7 +88,6 @@ alignment = 1
 
 [node name="OpenTimer" type="Timer" parent="."]
 wait_time = 2.0
-one_shot = true
 
 [node name="CloseTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -100,13 +101,14 @@ script = ExtResource("4_x3ggk")
 script = ExtResource("5_tih3g")
 skill = ExtResource("6_d1lxb")
 
-[node name="Damage+2" type="Node" parent="SkillPool"]
+[node name="Health+" type="Node" parent="SkillPool"]
 script = ExtResource("5_tih3g")
-skill = ExtResource("6_d1lxb")
+skill = ExtResource("8_sg8j4")
 
-[node name="Damage+3" type="Node" parent="SkillPool"]
+[node name="Size+" type="Node" parent="SkillPool"]
 script = ExtResource("5_tih3g")
-skill = ExtResource("6_d1lxb")
+skill = ExtResource("8_sg8j4")
 
+[connection signal="add_skill" from="." to="SkillPool" method="_on_win_screen_add_skill"]
 [connection signal="timeout" from="OpenTimer" to="." method="_on_open_timer_timeout"]
 [connection signal="timeout" from="CloseTimer" to="." method="_on_close_timer_timeout"]

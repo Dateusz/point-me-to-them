@@ -75,9 +75,14 @@ func _update_bonuses():
 	health_bonus = 0;
 	size_bonus = 1.0
 	for skill in skills:
-		if skill.name == "Damage+":
+		if skill.skill_name == "Damage+":
 			dmg_bonus += 1
-		if skill.name == "Size+":
+		if skill.skill_name == "Size+":
 			size_bonus += 0.5
-		if skill.name == "Health+":
+		if skill.skill_name == "Health+":
 			health_bonus += 1
+		
+	print("damage bonus: %s" % dmg_bonus)
+	print("health bonus: %s" % health_bonus)
+	print("size bonus: %s" % (size_bonus - 1.0))
+	

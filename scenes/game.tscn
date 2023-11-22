@@ -49,7 +49,7 @@ shake_fade = 10.0
 [connection signal="open_win_screen" from="." to="WinScreen" method="_on_game_open_win_screen"]
 [connection signal="add_skill" from="WinScreen" to="Player" method="_on_win_screen_add_skill"]
 [connection signal="hide_ui" from="WinScreen" to="." method="_on_win_screen_hide_ui"]
-[connection signal="show_ui" from="WinScreen" to="." method="_on_win_screen_show_ui"]
+[connection signal="next_round" from="WinScreen" to="." method="_on_win_screen_next_round"]
 [connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="start_game" from="start_timer" to="." method="_on_start_timer_start_game"]
 

@@ -17,9 +17,11 @@ var score = 0
 var combo = 0
 var multiplier = 1.0
 var min_multiplier = 1.0
-var starting_enemies = enemy_count
+var starting_enemies: int
+var enemies_left: int
 var lost = false
 var won = false
+var round_number = 0
 
 
 func _ready():
@@ -34,14 +36,20 @@ func _input(event):
 
 
 func _start_game():
-	spawn_enemies(enemy_count)
+	round_number += 1
+	print("Round: %s" % round_number)
+	spawn_enemies(prepare_enemy_count())
 	update_score()
 	update_multiplier()
 
 
-func _count_down():
-	pass
-	
+func prepare_enemy_count():
+	enemy_count =  3 + pow(float(round_number),2.0)
+	starting_enemies = enemy_count
+	enemies_left = enemy_count
+	print(enemy_count)
+	return enemy_count
+
 
 func update_score(points = 0):
 	score += (points * multiplier)
@@ -60,21 +68,23 @@ func update_combo():
 
 func spawn_enemies(count):
 	for each in count:
+		print('spawning enemy')
 		var mob = enemy_scene.instantiate()
 		var mob_position = _get_random_position()
 		mob.position = mob_position
 		mob.connect("killed_by_player", _on_enemy_killed_by_player)
 		mob.connect("player_hit", _on_enemy_deals_damage)
 		add_child(mob)
+		print(mob)
 
 
 func _on_enemy_killed_by_player(_points, _multiplier):
-	enemy_count -= 1
+	enemies_left -= 1
 	update_score(_points)
 	update_multiplier(_multiplier)
 	update_combo()
 	camera_2d.apply_shake(1.5,1)
-	if enemy_count <= 0:
+	if enemies_left <= 0:
 		won = true
 		end_stage()
 
@@ -152,5 +162,7 @@ func _on_win_screen_hide_ui():
 	gui.hide()
 
 
-func _on_win_screen_show_ui():
+func _on_win_screen_next_round():
 	gui.show()
+	get_tree().paused = false
+	_start_game()

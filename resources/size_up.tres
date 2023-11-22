@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SkillResource" load_steps=5 format=3 uid="uid://f585g6yu0iec"]
+
+[ext_resource type="Texture2D" uid="uid://cdq6nge7ibna" path="res://sprites/skills/grow_hover.png" id="1_6akg0"]
+[ext_resource type="Script" path="res://scripts/skill_resource.gd" id="1_6nbvg"]
+[ext_resource type="Texture2D" uid="uid://ctn3eqx4qlohy" path="res://sprites/skills/grow.png" id="2_p4yhf"]
+[ext_resource type="Texture2D" uid="uid://ctrqe7mi0u4rg" path="res://sprites/skills/grow_pressed.png" id="3_relx3"]
+
+[resource]
+script = ExtResource("1_6nbvg")
+normal_texture = ExtResource("2_p4yhf")
+pressed_texture = ExtResource("3_relx3")
+hover_texture = ExtResource("1_6akg0")
+skill_name = "Size+"
+description = "Grow slightly larger"

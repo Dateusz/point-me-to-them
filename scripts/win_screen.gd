@@ -3,6 +3,7 @@ extends CanvasLayer
 signal hide_ui()
 signal show_ui()
 signal add_skill(skill)
+signal next_round()
 
 @export var skill_choice_scene: PackedScene
 
@@ -18,22 +19,18 @@ var selected_skills: Array
 
 
 func _ready():
-	intermediate_text.text = "[center]SELECT A SKILL
-TO CONTINUE[/center]"
-
-	show_skill_selection()
-
-
-func _on_skill_icon_pressed(skill):
-	add_skill.emit(skill)
-	close_timer.start()
+	pass
 
 
 func _on_game_open_win_screen():
 	open_timer.start()
+	intermediate_text.text = str("[center]SELECT A SKILL ", 
+									"TO CONTINUE[/center]")
 
 
 func _on_open_timer_timeout():
+	open_timer.stop()
+	show_skill_selection()
 	win_screen.visible = !win_screen.visible
 	hide_ui.emit()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -41,6 +38,8 @@ func _on_open_timer_timeout():
 
 func _on_close_timer_timeout():
 	show_ui.emit()
+	next_round.emit()
+	win_screen.visible = !win_screen.visible
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 
@@ -55,4 +54,7 @@ func show_skill_selection():
 		
 
 func skill_chosen(skill):
-	print("BOO")
+	add_skill.emit(skill)
+	close_timer.start()
+	for child in skills_display.get_children():
+		child.queue_free()

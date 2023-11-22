@@ -6,6 +6,6 @@ extends Timer
 
 
 func _process(_delta):
-	if !is_stopped:
-		intermediate_text.text = "[center]Great! Continuing in %02d[/center]" % get_time_left()
+	if not timer.is_stopped():
+		intermediate_text.text = "[center]Great! Continuing in %02d[/center]" % (get_time_left() + 1)
 
