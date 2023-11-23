@@ -21,6 +21,7 @@ var is_vulnerable = true
 var min_attack_wait_time
 var max_attack_wait_time
 var attack_speed
+var player_bonus_dmg: int = 0
 
 func _ready():
 	$AnimatedSprite2D.sprite_frames = resource.sprite_frames
@@ -40,6 +41,8 @@ func _process(_delta):
 
 
 func _on_area_2d_body_entered(_body):
+	if(_body.get_parent().name == "Player"):
+		player_bonus_dmg = _body.get_parent().dmg_bonus
 	if !is_dead:
 		take_damage = true
 		_take_damage()
@@ -62,8 +65,7 @@ func _take_damage():
 		if not is_attacking:
 			animated_sprite_2d.play("hit")
 		
-		#TODO: get the damage from player
-		health -= (1 + player.dmg_bonus)
+		health -= (1 + player_bonus_dmg)
 
 
 func _check_if_dead():

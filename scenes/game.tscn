@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bnwadfq58yqnf"]
+[gd_scene load_steps=11 format=3 uid="uid://bnwadfq58yqnf"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_vujot"]
 [ext_resource type="PackedScene" uid="uid://cp65lqllgud8j" path="res://scenes/enemy.tscn" id="2_xi3j4"]
@@ -6,15 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://6sitby0huoht" path="res://scenes/GUI.tscn" id="4_vcnfu"]
 [ext_resource type="PackedScene" uid="uid://km4sp5h5byo2" path="res://scenes/music.tscn" id="5_vf3o1"]
 [ext_resource type="Texture2D" uid="uid://ba7ae6rqr4m7q" path="res://sprites/backgrounds/OIG.jpg" id="6_j60pj"]
-[ext_resource type="Script" path="res://scenes/Camera2D.gd" id="7_dpc71"]
+[ext_resource type="Script" path="res://scripts/camera2d.gd" id="8_8gfhd"]
 [ext_resource type="PackedScene" uid="uid://bwdqgpcov6q0i" path="res://scenes/start_timer.tscn" id="8_k3y3l"]
 [ext_resource type="PackedScene" uid="uid://c1ev2a3y3ioh3" path="res://scenes/win_screen.tscn" id="9_2faty"]
+[ext_resource type="PackedScene" uid="uid://dys1wcvvg34uw" path="res://scenes/lose_screen.tscn" id="10_0rxqv"]
 
 [node name="game" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_vujot")
 enemy_scene = ExtResource("2_xi3j4")
-enemy_count = 1
+enemy_count = 3
 
 [node name="GUI" parent="." instance=ExtResource("4_vcnfu")]
 layer = 10
@@ -36,18 +37,22 @@ texture = ExtResource("6_j60pj")
 
 [node name="Player" parent="." instance=ExtResource("3_84pyh")]
 visibility_layer = 1
+health = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 544)
-script = ExtResource("7_dpc71")
+script = ExtResource("8_8gfhd")
 shake_fade = 10.0
 
 [node name="start_timer" parent="." instance=ExtResource("8_k3y3l")]
 
+[node name="lose_screen" parent="." instance=ExtResource("10_0rxqv")]
+visible = false
+
 [connection signal="close_menu" from="." to="GUI/Options" method="_on_game_close_menu"]
+[connection signal="open_lose_screen" from="." to="lose_screen" method="_on_game_open_lose_screen"]
 [connection signal="open_menu" from="." to="GUI/Options" method="_on_game_open_menu"]
 [connection signal="open_win_screen" from="." to="WinScreen" method="_on_game_open_win_screen"]
-[connection signal="add_skill" from="WinScreen" to="Player" method="_on_win_screen_add_skill"]
 [connection signal="hide_ui" from="WinScreen" to="." method="_on_win_screen_hide_ui"]
 [connection signal="next_round" from="WinScreen" to="." method="_on_win_screen_next_round"]
 [connection signal="died" from="Player" to="." method="_on_player_died"]

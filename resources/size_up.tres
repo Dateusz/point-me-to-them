@@ -11,4 +11,4 @@ normal_texture = ExtResource("2_p4yhf")
 pressed_texture = ExtResource("3_relx3")
 hover_texture = ExtResource("1_6akg0")
 skill_name = "Size+"
-description = "Grow slightly larger"
+description = "Grow slightly larger. Easier to hit, but also to get hit."

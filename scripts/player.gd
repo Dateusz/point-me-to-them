@@ -4,6 +4,7 @@ signal died()
 
 @onready var game = $".."
 @onready var player = $"."
+@onready var character_body_2d = $CharacterBody2D
 @onready var animated_sprite_2d = $CharacterBody2D/AnimatedSprite2D
 
 @onready var gui = $"../GUI"
@@ -15,6 +16,7 @@ var iframes_timer: Timer
 var iframes_length: float = 1.0
 var is_vulnerable = true
 var skills: Array
+var base_size: Vector2
 
 var dmg_bonus: int = 0
 var health_bonus: int = 0
@@ -22,7 +24,7 @@ var size_bonus: float = 1.0
 
 
 func _ready():
-	pass
+	base_size = character_body_2d.transform.get_scale()
 
 
 func _input(event):
@@ -32,14 +34,15 @@ func _input(event):
 		elif event is InputEventMouseMotion:
 			player.position = event.position
 
+
 func get_damaged():
-	if health > 0:
-		if is_vulnerable:
-			SoundManager.play_player_hit_sound()
-			camera_2d.apply_shake(30, 5)
-			health -= 1
-			_new_iframes_timer(iframes_length)
-	else:
+	if is_vulnerable:
+		SoundManager.play_player_hit_sound()
+		camera_2d.apply_shake(30, 5)
+		_new_iframes_timer(iframes_length)
+		health -= 1
+	
+	if health < 1:
 		died.emit()
 
 
@@ -73,16 +76,14 @@ func _on_win_screen_add_skill(skill):
 func _update_bonuses():
 	dmg_bonus = 0
 	health_bonus = 0;
-	size_bonus = 1.0
+	size_bonus = 0.0
 	for skill in skills:
 		if skill.skill_name == "Damage+":
 			dmg_bonus += 1
 		if skill.skill_name == "Size+":
-			size_bonus += 0.5
+			size_bonus += 0.2
 		if skill.skill_name == "Health+":
 			health_bonus += 1
-		
-	print("damage bonus: %s" % dmg_bonus)
-	print("health bonus: %s" % health_bonus)
-	print("size bonus: %s" % (size_bonus - 1.0))
 	
+	var size = base_size.x + (base_size.x * size_bonus)
+	character_body_2d.scale = Vector2(size, size)

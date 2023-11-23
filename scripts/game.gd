@@ -3,6 +3,7 @@ extends Node2D
 signal open_menu()
 signal close_menu()
 signal open_win_screen()
+signal open_lose_screen(end_message)
 
 @export var enemy_scene: PackedScene
 @export var enemy_count: int
@@ -23,6 +24,10 @@ var lost = false
 var won = false
 var round_number = 0
 
+var max_multiplier: float = 1.0
+var max_combo: int = 1
+var enemies_killed: int = 0
+
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
@@ -37,7 +42,6 @@ func _input(event):
 
 func _start_game():
 	round_number += 1
-	print("Round: %s" % round_number)
 	spawn_enemies(prepare_enemy_count())
 	update_score()
 	update_multiplier()
@@ -47,7 +51,6 @@ func prepare_enemy_count():
 	enemy_count =  3 + pow(float(round_number),2.0)
 	starting_enemies = enemy_count
 	enemies_left = enemy_count
-	print(enemy_count)
 	return enemy_count
 
 
@@ -58,28 +61,31 @@ func update_score(points = 0):
 
 func update_multiplier(points = 0.0):
 	multiplier = multiplier + points
+	if multiplier > max_multiplier:
+		max_multiplier = multiplier
 	gui.update_multiplier(multiplier)
 
 
 func update_combo():
 	combo += 1
+	if combo > max_combo:
+		max_combo = combo
 	gui.update_combo(combo)
 
 
 func spawn_enemies(count):
 	for each in count:
-		print('spawning enemy')
 		var mob = enemy_scene.instantiate()
 		var mob_position = _get_random_position()
 		mob.position = mob_position
 		mob.connect("killed_by_player", _on_enemy_killed_by_player)
 		mob.connect("player_hit", _on_enemy_deals_damage)
 		add_child(mob)
-		print(mob)
 
 
 func _on_enemy_killed_by_player(_points, _multiplier):
 	enemies_left -= 1
+	enemies_killed += 1
 	update_score(_points)
 	update_multiplier(_multiplier)
 	update_combo()
@@ -128,15 +134,14 @@ func _on_enemy_deals_damage():
 
 func end_stage():
 	if lost:
-		print("game lost")
+		game_lost()
 	elif won:
 		stage_won()
 
 
 func _on_player_died():
-	if !lost:
-		lost = true
-		end_stage()
+	lost = true
+	end_stage()
 
 
 func restart():
@@ -166,3 +171,16 @@ func _on_win_screen_next_round():
 	gui.show()
 	get_tree().paused = false
 	_start_game()
+
+
+func game_lost():
+	var end_message = str(
+		"SCORE: %d\n" % score,
+		"MAX MULTIPLIER: %.02f\n" % max_multiplier,
+		"MAX COMBO: %d\n" % max_combo,
+		"ENEMIES VANQUISHED: %d\n" % enemies_killed,
+		"ROUNDS: %d" % round_number
+	)
+	gui.hide()
+	get_tree().paused = true
+	open_lose_screen.emit(end_message)
