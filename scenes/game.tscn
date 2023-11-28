@@ -51,6 +51,7 @@ visible = false
 [connection signal="open_lose_screen" from="." to="lose_screen" method="_on_game_open_lose_screen"]
 [connection signal="open_menu" from="." to="GUI/Options" method="_on_game_open_menu"]
 [connection signal="open_win_screen" from="." to="WinScreen" method="_on_game_open_win_screen"]
+[connection signal="set_camera_shake" from="GUI/Options" to="Camera2D" method="_on_options_set_camera_shake"]
 [connection signal="add_skill" from="WinScreen" to="Player" method="_on_win_screen_add_skill"]
 [connection signal="hide_ui" from="WinScreen" to="." method="_on_win_screen_hide_ui"]
 [connection signal="next_round" from="WinScreen" to="." method="_on_win_screen_next_round"]

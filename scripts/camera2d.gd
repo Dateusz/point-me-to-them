@@ -10,9 +10,6 @@ var options_shake_value: float = 1.0
 
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		apply_shake(strength, shake_fade)
-		
 	if shake_strength > 1:
 		shake_strength = lerpf(shake_strength,0,shake_fade * delta)
 		offset = random_offset()
@@ -32,5 +29,6 @@ func random_offset() -> Vector2:
 	)
 
 
-func _on_menu_set_camera_shake(value):
+func _on_options_set_camera_shake(value):
 	options_shake_value = value
+
