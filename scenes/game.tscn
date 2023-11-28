@@ -26,10 +26,6 @@ visible = false
 [node name="WinScreen" parent="." instance=ExtResource("9_2faty")]
 visible = false
 
-[node name="Music" parent="." instance=ExtResource("5_vf3o1")]
-volume_db = 0.0
-autoplay = true
-
 [node name="background" type="Sprite2D" parent="."]
 position = Vector2(944, 584)
 scale = Vector2(2.04297, 2.04297)
@@ -49,13 +45,18 @@ shake_fade = 10.0
 [node name="lose_screen" parent="." instance=ExtResource("10_0rxqv")]
 visible = false
 
+[node name="Music" parent="." instance=ExtResource("5_vf3o1")]
+
 [connection signal="close_menu" from="." to="GUI/Options" method="_on_game_close_menu"]
 [connection signal="open_lose_screen" from="." to="lose_screen" method="_on_game_open_lose_screen"]
 [connection signal="open_menu" from="." to="GUI/Options" method="_on_game_open_menu"]
 [connection signal="open_win_screen" from="." to="WinScreen" method="_on_game_open_win_screen"]
+[connection signal="add_skill" from="WinScreen" to="Player" method="_on_win_screen_add_skill"]
 [connection signal="hide_ui" from="WinScreen" to="." method="_on_win_screen_hide_ui"]
 [connection signal="next_round" from="WinScreen" to="." method="_on_win_screen_next_round"]
 [connection signal="died" from="Player" to="." method="_on_player_died"]
+[connection signal="health_bonus_gained" from="Player" to="GUI" method="_on_player_health_bonus_gained"]
 [connection signal="start_game" from="start_timer" to="." method="_on_start_timer_start_game"]
 
 [editable path="GUI"]
+[editable path="Music"]

@@ -13,6 +13,7 @@ signal open_lose_screen(end_message)
 @onready var camera_2d = $Camera2D
 @onready var player = $Player
 @onready var start_timer = $start_timer
+@onready var music = $Music
 
 var score = 0
 var combo = 0
@@ -31,6 +32,8 @@ var enemies_killed: int = 0
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	music.get_child(1).set_volume_db(-80)
+	music.get_child(2).set_volume_db(-80)
 
 
 func _input(event):
@@ -66,12 +69,31 @@ func update_multiplier(points = 0.0):
 	gui.update_multiplier(multiplier)
 
 
-func update_combo():
+func increase_combo():
 	combo += 1
 	if combo > max_combo:
 		max_combo = combo
-	gui.update_combo(combo)
+	
+	if combo > 10:
+		music.get_child(0).set_volume_db(3)
+		music.get_child(1).set_volume_db(3)
+		
+	if combo > 20:
+		music.get_child(0).set_volume_db(6)
+		music.get_child(1).set_volume_db(6)
+		music.get_child(2).set_volume_db(6)
+	
+	update_combo(combo)
 
+func reset_combo():
+	music.get_child(0).set_volume_db(0)
+	music.get_child(1).set_volume_db(-80)
+	music.get_child(2).set_volume_db(-80)
+	update_combo(0)
+
+func update_combo(count):
+	combo = count
+	gui.update_combo(combo)
 
 func spawn_enemies(count):
 	for each in count:
@@ -88,7 +110,7 @@ func _on_enemy_killed_by_player(_points, _multiplier):
 	enemies_killed += 1
 	update_score(_points)
 	update_multiplier(_multiplier)
-	update_combo()
+	increase_combo()
 	camera_2d.apply_shake(1.5,1)
 	if enemies_left <= 0:
 		won = true
@@ -124,10 +146,9 @@ func unpause():
 
 
 func _on_enemy_deals_damage():
-	combo = 0
+	reset_combo()
 	multiplier = 1.0
 	gui.update_multiplier(multiplier)
-	gui.update_combo(combo)
 	player.get_damaged()
 	gui.update_health_bar()
 

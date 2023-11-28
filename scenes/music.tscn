@@ -1,8 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://km4sp5h5byo2"]
+[gd_scene load_steps=4 format=3 uid="uid://km4sp5h5byo2"]
 
-[ext_resource type="AudioStream" uid="uid://c0iabm0410gci" path="res://audio/music/8bit Stage1 Loop.mp3" id="1_em5aq"]
+[ext_resource type="AudioStream" uid="uid://bj5esd8a0xxr3" path="res://audio/music/stage1_0.mp3" id="1_pd02l"]
+[ext_resource type="AudioStream" uid="uid://b2ltvquxiuvi" path="res://audio/music/stage1_1.mp3" id="2_7liev"]
+[ext_resource type="AudioStream" uid="uid://ciok5ypqitx0m" path="res://audio/music/stage1_2.mp3" id="3_ewxxw"]
 
-[node name="Music" type="AudioStreamPlayer2D"]
-stream = ExtResource("1_em5aq")
-volume_db = -20.0
+[node name="Music" type="Node"]
+
+[node name="Track01" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_pd02l")
+autoplay = true
+bus = &"Music"
+
+[node name="Track02" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_7liev")
+autoplay = true
+bus = &"Music"
+
+[node name="Track03" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ewxxw")
+autoplay = true
 bus = &"Music"

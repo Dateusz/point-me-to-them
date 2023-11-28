@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://6sitby0huoht"]
+[gd_scene load_steps=4 format=3 uid="uid://6sitby0huoht"]
 
 [ext_resource type="Script" path="res://scripts/GUI.gd" id="1_4c3tv"]
 [ext_resource type="PackedScene" uid="uid://cjkcowdv62b1u" path="res://scenes/options.tscn" id="2_fjhd0"]
+[ext_resource type="FontFile" uid="uid://b7p0cqd1acwhk" path="res://fonts/Ghoulish.ttf" id="2_hyg16"]
 
 [node name="GUI" type="CanvasLayer"]
 process_mode = 3
@@ -9,28 +10,42 @@ script = ExtResource("1_4c3tv")
 
 [node name="ScoreDisplay" type="RichTextLabel" parent="."]
 anchors_preset = -1
-anchor_left = 0.0182292
-anchor_top = 0.0287037
-anchor_right = 0.0927083
-anchor_bottom = 0.0657407
+anchor_left = 0.0333333
+anchor_top = 0.0592593
+anchor_right = 0.308333
+anchor_bottom = 0.15463
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.803922, 0, 0.560784, 1)
+theme_override_fonts/normal_font = ExtResource("2_hyg16")
+theme_override_font_sizes/normal_font_size = 60
 text = "SCORE:"
+metadata/_edit_use_anchors_ = true
 
 [node name="MultiplierDisplay" type="RichTextLabel" parent="."]
 anchors_preset = -1
-anchor_left = 0.0182292
-anchor_top = 0.0583333
-anchor_right = 0.0927083
-anchor_bottom = 0.0953704
+anchor_left = 0.0333333
+anchor_top = 0.177778
+anchor_right = 0.309375
+anchor_bottom = 0.244444
+theme_override_colors/default_color = Color(0.803922, 0, 0.560784, 1)
+theme_override_fonts/normal_font = ExtResource("2_hyg16")
+theme_override_font_sizes/normal_font_size = 60
 text = "MULTIPLIER: X1"
+metadata/_edit_use_anchors_ = true
 
 [node name="ComboDisplay" type="RichTextLabel" parent="."]
 anchors_preset = -1
-anchor_left = 0.915104
-anchor_top = 0.0583333
-anchor_right = 0.989583
-anchor_bottom = 0.0953704
+anchor_left = 0.720833
+anchor_top = 0.0592593
+anchor_right = 0.995313
+anchor_bottom = 0.14537
 size_flags_horizontal = 4
+theme_override_colors/default_color = Color(0.803922, 0, 0.560784, 1)
+theme_override_fonts/normal_font = ExtResource("2_hyg16")
+theme_override_font_sizes/normal_font_size = 60
 text = "COMBO X"
+metadata/_edit_use_anchors_ = true
 
 [node name="HealthDisplay" type="Control" parent="."]
 layout_mode = 3
@@ -49,8 +64,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 300
-theme_override_constants/margin_top = 100
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 300
 
 [node name="HealthContainer" type="GridContainer" parent="HealthDisplay/HealthMargin"]
 layout_mode = 2

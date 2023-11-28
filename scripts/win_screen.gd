@@ -3,6 +3,7 @@ extends CanvasLayer
 signal hide_ui()
 signal show_ui()
 signal next_round()
+signal add_skill()
 
 @export var skill_choice_scene: PackedScene
 
@@ -53,6 +54,7 @@ func show_skill_selection():
 		
 
 func skill_chosen(skill):
+	add_skill.emit(skill)
 	close_timer.start()
 	for child in skills_display.get_children():
 		child.queue_free()

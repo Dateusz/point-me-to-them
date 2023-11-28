@@ -48,3 +48,8 @@ func update_health_bar():
 			pc.add_child(hp)
 			hp.set_texture(heart_png)
 			hp.scale = Vector2(3,3)
+
+
+func _on_player_health_bonus_gained():
+	print("more hp!")
+	update_health_bar()

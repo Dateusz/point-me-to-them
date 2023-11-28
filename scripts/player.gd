@@ -1,6 +1,7 @@
 extends Node2D
 
 signal died()
+signal health_bonus_gained()
 
 @onready var game = $".."
 @onready var player = $"."
@@ -19,12 +20,12 @@ var skills: Array
 var base_size: Vector2
 
 var dmg_bonus: int = 0
-var health_bonus: int = 0
-var size_bonus: float = 1.0
+var size_bonus: float = 0.0
 
 
 func _ready():
 	base_size = character_body_2d.transform.get_scale()
+	print(base_size)
 
 
 func _input(event):
@@ -70,20 +71,19 @@ func _set_player_vulnerable():
 
 func _on_win_screen_add_skill(skill):
 	skills.append(skill)
-	_update_bonuses()
+	_update_bonuses(skill)
 
 
-func _update_bonuses():
-	dmg_bonus = 0
-	health_bonus = 0;
-	size_bonus = 0.0
-	for skill in skills:
-		if skill.skill_name == "Damage+":
-			dmg_bonus += 1
-		if skill.skill_name == "Size+":
-			size_bonus += 0.2
-		if skill.skill_name == "Health+":
-			health_bonus += 1
-	
-	var size = base_size.x + (base_size.x * size_bonus)
-	character_body_2d.scale = Vector2(size, size)
+func _update_bonuses(skill):
+	if skill.skill_name == "Damage+":
+		dmg_bonus += 1
+		
+	if skill.skill_name == "Size+":
+		size_bonus += 0.02
+			
+		var size = (base_size.x + size_bonus)
+		character_body_2d.scale = Vector2(size, size)
+		
+	if skill.skill_name == "Health+":
+		health += 1
+		health_bonus_gained.emit()
