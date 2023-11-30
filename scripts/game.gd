@@ -26,7 +26,7 @@ var won = false
 var round_number = 0
 
 var max_multiplier: float = 1.0
-var max_combo: int = 1
+var max_combo: int = 0
 var enemies_killed: int = 0
 
 
@@ -51,7 +51,10 @@ func _start_game():
 
 
 func prepare_enemy_count():
-	enemy_count =  3 + pow(float(round_number),2.0)
+	if round_number % 5 == 1 and round_number != 1:
+		print("EYOO")
+	
+	enemy_count =  3 + pow(float(round_number%5),2.0)
 	starting_enemies = enemy_count
 	enemies_left = enemy_count
 	return enemy_count
@@ -85,15 +88,18 @@ func increase_combo():
 	
 	update_combo(combo)
 
+
 func reset_combo():
 	music.get_child(0).set_volume_db(0)
 	music.get_child(1).set_volume_db(-80)
 	music.get_child(2).set_volume_db(-80)
 	update_combo(0)
 
+
 func update_combo(count):
 	combo = count
 	gui.update_combo(combo)
+
 
 func spawn_enemies(count):
 	for each in count:
@@ -205,3 +211,7 @@ func game_lost():
 	gui.hide()
 	get_tree().paused = true
 	open_lose_screen.emit(end_message)
+
+
+func _on_options_unpause():
+	unpause()

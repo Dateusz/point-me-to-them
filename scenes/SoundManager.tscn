@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://c26nwppxhosjl" path="res://audio/sfx/hit/player_hit01.mp3" id="10_si1rw"]
 
 [node name="SoundManager" type="Node"]
+process_mode = 3
 script = ExtResource("1_08611")
 
 [node name="SkeletonHitSoundPool" type="Node" parent="."]
@@ -23,6 +24,7 @@ count = 5
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SkeletonHitSoundPool/SoundQueue"]
 stream = ExtResource("4_cc3o0")
+volume_db = 12.0
 bus = &"SFX"
 
 [node name="SoundQueue2" type="Node" parent="SkeletonHitSoundPool"]
@@ -31,6 +33,7 @@ count = 5
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SkeletonHitSoundPool/SoundQueue2"]
 stream = ExtResource("5_2bums")
+volume_db = 12.0
 bus = &"SFX"
 
 [node name="SoundQueue3" type="Node" parent="SkeletonHitSoundPool"]
@@ -39,6 +42,7 @@ count = 5
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SkeletonHitSoundPool/SoundQueue3"]
 stream = ExtResource("6_i5tlp")
+volume_db = 12.0
 bus = &"SFX"
 
 [node name="SoundQueue4" type="Node" parent="SkeletonHitSoundPool"]
@@ -47,6 +51,7 @@ count = 5
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SkeletonHitSoundPool/SoundQueue4"]
 stream = ExtResource("7_4rrxd")
+volume_db = 12.0
 bus = &"SFX"
 
 [node name="SoundQueue5" type="Node" parent="SkeletonHitSoundPool"]
@@ -55,6 +60,7 @@ count = 5
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SkeletonHitSoundPool/SoundQueue5"]
 stream = ExtResource("8_0aawa")
+volume_db = 12.0
 bus = &"SFX"
 
 [node name="PlayerHitSoundQueue" parent="." instance=ExtResource("9_vauho")]

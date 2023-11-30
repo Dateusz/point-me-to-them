@@ -48,8 +48,8 @@ func _on_cam_shake_slider_value_changed(value):
 
 
 func _on_close_button_pressed():
-	unpause.emit()
 	menu.visible = !menu.visible
+	unpause.emit()
 
 
 func _on_quit_game_button_pressed():
