@@ -13,6 +13,7 @@ signal add_skill()
 @onready var intermediate_text = $WinScreenCanvas/Control/IntermediateText
 @onready var skill_pool = $SkillPool
 @onready var skills_display = $WinScreenCanvas/Control/SkillChoose/Skills
+@onready var animation_player = $AnimationPlayer
 
 
 var selected_skills: Array
@@ -29,17 +30,19 @@ func _on_game_open_win_screen():
 
 
 func _on_open_timer_timeout():
+	animation_player.set_assigned_animation("open")
+	animation_player.play()
 	open_timer.stop()
 	show_skill_selection()
-	win_screen.visible = !win_screen.visible
 	hide_ui.emit()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 
 func _on_close_timer_timeout():
+	animation_player.set_assigned_animation("close")
+	animation_player.play()
 	show_ui.emit()
 	next_round.emit()
-	win_screen.visible = !win_screen.visible
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 

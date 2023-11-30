@@ -14,6 +14,7 @@ signal open_lose_screen(end_message)
 @onready var player = $Player
 @onready var start_timer = $start_timer
 @onready var music = $Music
+@onready var win_screen = $WinScreen
 
 var score = 0
 var combo = 0
