@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b35wcfac77jqd"]
+[gd_scene load_steps=12 format=3 uid="uid://b35wcfac77jqd"]
 
 [ext_resource type="Script" path="res://scripts/sound_manager.gd" id="1_08611"]
 [ext_resource type="Script" path="res://scripts/sound_pool.gd" id="2_7lh6u"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://bfr743gpb0sko" path="res://audio/sfx/hit/skeleton_hit05.mp3" id="8_0aawa"]
 [ext_resource type="PackedScene" uid="uid://8b26oprub225" path="res://scenes/SoundQueue.tscn" id="9_vauho"]
 [ext_resource type="AudioStream" uid="uid://c26nwppxhosjl" path="res://audio/sfx/hit/player_hit01.mp3" id="10_si1rw"]
+[ext_resource type="AudioStream" uid="uid://c746c1o8uvlrd" path="res://audio/sfx/bonus.mp3" id="11_bs3ya"]
 
 [node name="SoundManager" type="Node"]
 process_mode = 3
@@ -68,3 +69,9 @@ count = 1
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="PlayerHitSoundQueue"]
 stream = ExtResource("10_si1rw")
+
+[node name="BonusSoundQueue" parent="." instance=ExtResource("9_vauho")]
+count = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="BonusSoundQueue"]
+stream = ExtResource("11_bs3ya")

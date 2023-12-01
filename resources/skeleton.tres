@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_kpaki")
 sprite_frames = ExtResource("2_pbiii")
-health = 5
+max_health = 5
 points_reward = 20
 multiplier_bonus = 0.2
 attack_speed = [0.0, 3.0]

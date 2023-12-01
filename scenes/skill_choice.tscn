@@ -18,5 +18,6 @@ stretch_mode = 3
 [node name="SkillDesc" type="RichTextLabel" parent="."]
 layout_mode = 2
 bbcode_enabled = true
+fit_content = true
 
 [connection signal="pressed" from="SkillButton" to="." method="_on_skill_button_pressed"]

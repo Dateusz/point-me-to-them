@@ -55,7 +55,7 @@ func prepare_enemy_count():
 	if round_number % 5 == 1 and round_number != 1:
 		print("EYOO")
 	
-	enemy_count =  3 + pow(float(round_number%5),2.0)
+	enemy_count =  3 + round_number + pow(float(round_number%5),2.0)
 	starting_enemies = enemy_count
 	enemies_left = enemy_count
 	return enemy_count
@@ -75,14 +75,16 @@ func update_multiplier(points = 0.0):
 
 func increase_combo():
 	combo += 1
+	SoundManager.play_bonus_sound()
+	
 	if combo > max_combo:
 		max_combo = combo
 	
-	if combo > 10:
+	if combo > 9:
 		music.get_child(0).set_volume_db(3)
 		music.get_child(1).set_volume_db(3)
 		
-	if combo > 20:
+	if combo > 19:
 		music.get_child(0).set_volume_db(6)
 		music.get_child(1).set_volume_db(6)
 		music.get_child(2).set_volume_db(6)
@@ -107,6 +109,7 @@ func spawn_enemies(count):
 		var mob = enemy_scene.instantiate()
 		var mob_position = _get_random_position()
 		mob.position = mob_position
+		mob.resource.max_health = 5 + round_number - 1
 		mob.connect("killed_by_player", _on_enemy_killed_by_player)
 		mob.connect("player_hit", _on_enemy_deals_damage)
 		add_child(mob)

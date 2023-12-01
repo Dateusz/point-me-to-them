@@ -11,6 +11,7 @@ signal player_hit()
 @onready var multiplier_bonus: float
 @onready var attack_collision_area = $AttackCollisionArea
 @onready var damage: int
+@onready var health_bar = $HealthBar
 
 var take_damage = false
 var _damage_timer: Timer = null
@@ -25,19 +26,24 @@ var player_bonus_dmg: int = 0
 
 func _ready():
 	$AnimatedSprite2D.sprite_frames = resource.sprite_frames
-	health = resource.health
+	health = resource.max_health
 	points = resource.points_reward
 	multiplier_bonus = resource.multiplier_bonus
 	damage = resource.damage
 	min_attack_wait_time = resource.attack_speed[0]
 	max_attack_wait_time = resource.attack_speed[1]
+	health_bar.max_value = resource.max_health
 	
 	animated_sprite_2d.play("idle")
 	_new_timer(_attack_timer, _get_attack_speed(), _attack)
-
+	set_health_bar()
 
 func _process(_delta):
 	_check_if_dead()
+
+
+func set_health_bar():
+	health_bar.value = health
 
 
 func _on_area_2d_body_entered(_body):
@@ -66,6 +72,7 @@ func _take_damage():
 			animated_sprite_2d.play("hit")
 		
 		health -= (1 + player_bonus_dmg)
+		set_health_bar()
 
 
 func _check_if_dead():

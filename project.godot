@@ -11,9 +11,10 @@ config_version=5
 [application]
 
 config/name="Point Me To Them"
+config/description="A roguelite cursor slasher made for GameOff 2023 game jam."
 run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
 
 [autoload]
 

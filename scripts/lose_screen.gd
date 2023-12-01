@@ -22,6 +22,7 @@ func _on_game_open_lose_screen(end_message):
 
 
 func _on_open_timer_timeout():
+	animation_player.set_assigned_animation("what")
 	animation_player.play()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	self.visible = true

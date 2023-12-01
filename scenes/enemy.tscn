@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cp65lqllgud8j"]
+[gd_scene load_steps=8 format=3 uid="uid://cp65lqllgud8j"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_jgtjk"]
 [ext_resource type="Resource" uid="uid://cx6nhpha1hnaj" path="res://resources/skeleton.tres" id="2_fk23b"]
@@ -9,6 +9,12 @@ size = Vector2(17, 25)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w62m4"]
 radius = 19.0066
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trf3q"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m2tr7"]
+bg_color = Color(0.898039, 0, 0.223529, 1)
 
 [node name="Enemy" type="Node2D"]
 z_index = 6
@@ -33,6 +39,16 @@ monitoring = false
 [node name="AttackCollisionShape2D" type="CollisionShape2D" parent="AttackCollisionArea"]
 position = Vector2(-1, 2.5)
 shape = SubResource("CircleShape2D_w62m4")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -21.5
+offset_top = -16.0
+offset_right = 14.5
+offset_bottom = -12.0
+theme_override_styles/background = SubResource("StyleBoxFlat_trf3q")
+theme_override_styles/fill = SubResource("StyleBoxFlat_m2tr7")
+step = 1.0
+show_percentage = false
 
 [connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
